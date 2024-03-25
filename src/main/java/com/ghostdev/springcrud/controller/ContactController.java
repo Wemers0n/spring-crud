@@ -22,7 +22,7 @@ public class ContactController {
         return  repository.findAll();
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Contact> findById(@PathVariable long id){
         return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
@@ -33,7 +33,7 @@ public class ContactController {
         return repository.save(contact);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Contact> update(@PathVariable("id") long id, @RequestBody Contact contact){
         return repository.findById(id).map(record -> {
             record.setNome(contact.getNome());
@@ -44,7 +44,7 @@ public class ContactController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") long id){
         return repository.findById(id).map(record -> {repository.deleteById(id);
         return ResponseEntity.ok().build();
